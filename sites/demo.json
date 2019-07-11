@@ -1,0 +1,39 @@
+{
+    "meta": {
+        "title": "My Site",
+        "url": "mysite",
+        "account": "matt@yeet.co",
+        "author": "Author Name",
+        "theme": "pixel",
+        "social": {
+            "twitter": "user",
+            "instagram": "user",
+            "reddit": "user",
+            "snapchat": "user",
+            "email": "email"
+        }
+    },
+    "site": {
+        "name": "home",
+        "content": [
+            {
+                "type": "h2",
+                "text": "Header 1",
+                "styles": "<some random css>"
+            },
+            {
+                "type": "p",
+                "text": "yeet!"
+            }
+        ]
+    },
+    "footer": [
+        {
+            "type": "text",
+            "text": "Copyright 2019"
+        },
+        {
+            "type": "social-buttons"
+        }
+    ]
+}
