@@ -1,31 +1,16 @@
-console.log("Starting ThemeEngine...")
 const minimist = require('minimist')
+const ora = require('ora')
 
 
 let demo = require("./sites/demo.json")
 let theme = require("./themes/theme0")
 const interface = require("./interface")
 
-let items = []
 
-demo.site.content.forEach(item => {
-    items.push(theme[item.type](item.text))
-})
 
-console.log(items)
 
-// function interpolate(literals, ...expressions) {
-// let string = ``
-// for (const [i, val] of expressions.entries()) {
-//     string += literals[i] + val
-// }
-// string += literals[literals.length - 1]
-// return string
-// }
 
-// const interpolated = interpolate`I paid ${10}€`
-
-// console.log(interpolated)
+require('./cmds/load')()
 
 module.exports = () => {
     const args = minimist(process.argv.slice(2))
@@ -44,15 +29,15 @@ module.exports = () => {
         case 'today':
             require('./cmds/today')(args)
             break
-
         case 'version':
             require('./cmds/version')(args)
             break
-
         case 'help':
             require('./cmds/help')(args)
             break
-
+        case 'load':
+            require('./cmds/load')(args)
+            break
         default:
             console.error(`"${cmd}" is not a valid command!`)
             break

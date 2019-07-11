@@ -17,8 +17,13 @@
         "name": "home",
         "content": [
             {
-                "type": "h2",
+                "type": "h1",
                 "text": "Header 1",
+                "styles": "<some random css>"
+            },
+            {
+                "type": "h2",
+                "text": "Header 2",
                 "styles": "<some random css>"
             },
             {
