@@ -2,19 +2,19 @@
 const ora = require('ora')
 const transpiler = require('../core/transpiler')
 const writer = require('../core/writer')
+let configurer = require('../core/configurer')
 
-module.exports = async (args) => {
 
-	console.log("Transpiling...")
-	try {
-		let items = await transpiler()
+module.exports = (args) => {
 
-		console.log(items)
+	let config = configurer()
+	console.log(config)
 
-		console.log(writer.combine(items))
-	} catch (err) {
-		// spinner.stop()
+	let tr = new transpiler(config.theme.definition, config.site.definition)
+	let items = tr.run()
 
-		console.error(err)
-	}
+
+	console.log(items)
+
+	console.log(writer.combine(items))
 }

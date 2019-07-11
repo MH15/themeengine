@@ -1,13 +1,13 @@
 const minimist = require('minimist')
 const ora = require('ora')
+const path = require('path')
 
 
-let demo = require("./sites/demo.json")
-let theme = require("./themes/theme0")
+
 const interface = require("./interface")
 
 
-
+global.appRoot = path.resolve(__dirname);
 
 
 require('./cmds/load')()

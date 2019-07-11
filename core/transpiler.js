@@ -1,16 +1,25 @@
-let demo = require("../sites/demo.json")
-let theme = require("../themes/theme0")
-let interface = require("../interface")
+// let demo = require("../sites/demo.json")
+// let theme = require("../themes/theme0")
+let inter = require("../interface")
 
-module.exports = () => {
-    return new Promise((resolve, reject) => {
-        let VALID_ITEMS = Object.keys(interface)
-        let THEME_TYPES = Object.keys(theme)
+const path = require('path')
 
-        items = demo.site.content.map(item => {
+
+
+module.exports = class Transpiler {
+    constructor(themePath, sitePath) {
+        this.theme = require(themePath)
+        this.site = require(sitePath)
+    }
+
+    run() {
+        let VALID_ITEMS = Object.keys(inter)
+        let THEME_TYPES = Object.keys(this.theme)
+        // console.log("site: ", this.site)
+        let items = this.site.site.content.map(item => {
             if (VALID_ITEMS.includes(item.type)) {
                 if (THEME_TYPES.includes(item.type)) {
-                    return theme[item.type](item.text)
+                    return this.theme[item.type](item.text)
                 } else {
                     console.error(`Item type "${item.type}" found in the theme definition not supported by ThemeEngine.`)
                 }
@@ -18,11 +27,8 @@ module.exports = () => {
                 console.error(`Item type "${item.type}" found in the interface not supported by ThemeEngine.`)
             }
         })
-        resolve(items)
-    })
-    // console.log("test")
+        return items
+    }
 
 
-
-    console.log(items)
 }

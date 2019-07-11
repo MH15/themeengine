@@ -1,6 +1,6 @@
 // The 0th Theme!
 
-const interface = require("../interface")
+const interface = require("../../interface")
 
 module.exports = {
     h1: (content) => {
