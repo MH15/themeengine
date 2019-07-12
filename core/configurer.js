@@ -12,7 +12,7 @@ module.exports = () => {
             name: cfg.theme,
             definition: path.join(themepath, `${cfg.theme}.js`),
             path: themepath,
-            sasspath: path.join(themepath, "sass")
+            sasspath: path.join(themepath, "sass", "main.sass")
         },
         site: {
             name: cfg.site,

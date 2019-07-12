@@ -3,9 +3,11 @@
 let inter = require("../interface")
 
 const path = require('path')
+const mustache = require('mustache')
+const fs = require('fs')
 
 
-
+// TODO: use theme specified in site definition
 module.exports = class Transpiler {
     constructor(themePath, sitePath) {
         this.theme = require(themePath)
@@ -31,4 +33,34 @@ module.exports = class Transpiler {
     }
 
 
+
+    sass(sasspath) {
+        var sass = require('node-sass');
+        sass.render({
+            file: sasspath
+        }, function (err, result) {
+            if (err) {
+                console.error("Sass won't compile.")
+                console.log(err)
+                return -1;
+            } else {
+                return result.css.toString('utf8')
+            }
+        })
+    }
+
+
+    mustache(content) {
+        fs.readFile(path.join(global.appRoot, "reference", "default.mst"), (err, data) => {
+            if (err) throw err;
+            // console.log(data)
+            let result = mustache.render(data.toString('utf8'), { content: content });
+            console.log(result)
+        });
+    }
+
 }
+
+
+
+
