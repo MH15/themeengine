@@ -2,6 +2,9 @@
 
 <head>
     <title>Title!</title>
+    <style>
+        {{ &sass }}
+    </style>
 </head>
 
 <body>
