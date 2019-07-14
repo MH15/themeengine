@@ -11,89 +11,11 @@ let ejs = require('ejs')
 var sassc = require('node-sass');
 
 
-class Transpiler {
-    // TODO: use theme specified in site definition
-    constructor(config) {
-        this.theme = require(config.theme.definition)
-        this.site = require(config.site.definition)
-        this.config = config
-
-        this.items = []
-        this.combined = ""
-        this.html = ""
-        this.compiled_sass = ""
-    }
-
-    run() {
-        let VALID_ITEMS = Object.keys(inter)
-        let THEME_TYPES = Object.keys(this.theme)
-        // console.log("site: ", this.site)
-        this.items = this.site.site.content.map(item => {
-            if (VALID_ITEMS.includes(item.type)) {
-                if (THEME_TYPES.includes(item.type)) {
-                    return this.theme[item.type](item.text)
-                } else {
-                    console.error(`Item type "${item.type}" found in the theme definition not supported by ThemeEngine.`)
-                }
-            } else {
-                console.error(`Item type "${item.type}" found in the interface not supported by ThemeEngine.`)
-            }
-        })
-    }
-
-    combine() {
-        this.combined = writer.combine(this.items)
-    }
-
-    // TODO: fuck classes
-    mustache() {
-        return new Promise(async function (resolve, reject) {
-            let template = fs.readFileSync(path.join(global.appRoot, "reference", "default.mst"))
-
-            console.log("casca:", this.config.theme.sasspath)
-            let cs = await sass(this.config.theme.sasspath)
-            console.log("cs:", cs)
-            let ms = {
-                content: this.combined,
-                sass: cs
-            }
-            console.log("ms:", ms)
-            let result = mustache.render(template.toString('utf8'), ms);
-            console.log("resulta:", result)
-            resolve(result)
-        })
-    }
-
-
-
-
-
-
-
-
-
-
-}
-
-
-
-function sass(sasspath) {
-    return new Promise((resolve, reject) => {
-        sassc.render({
-            file: sasspath
-        }, function (err, result) {
-            if (err) {
-                console.error("Sass won't compile.")
-                console.log(err)
-                reject(err)
-            } else {
-                let s = result.css.toString()
-                console.log("compiled sass: ", s)
-                resolve(s)
-            }
-        })
-    })
-
+function intersect(a, b) {
+    var setA = new Set(a);
+    var setB = new Set(b);
+    var intersection = new Set([...setA].filter(x => setB.has(x)));
+    return Array.from(intersection);
 }
 
 
@@ -103,16 +25,24 @@ module.exports = {
         return new Promise((resolve, reject) => {
             let VALID_ITEMS = Object.keys(inter)
             let THEME_TYPES = Object.keys(theme)
+            let intersection = intersect(VALID_ITEMS, THEME_TYPES)
+
+            // Check for an incomplete theme.
+            if (intersection.length != VALID_ITEMS.length || intersection.length != THEME_TYPES.length) {
+                console.error("Certain elements from the interface are not defined.")
+            }
+
+
             // console.log("site: ", this.site)
-            let items = site.site.content.map(item => {
+            let items = site.content.map(item => {
                 if (VALID_ITEMS.includes(item.type)) {
                     if (THEME_TYPES.includes(item.type)) {
                         return theme[item.type](item.text)
                     } else {
-                        console.error(`Item type "${item.type}" found in the theme definition not supported by ThemeEngine.`)
+                        console.error(`Item type "${item.type}" found in the interface not supported by ThemeEngine.`)
                     }
                 } else {
-                    console.error(`Item type "${item.type}" found in the interface not supported by ThemeEngine.`)
+                    console.error(`Item type "${item.type}" found in the theme definition not supported by ThemeEngine.`)
                 }
             })
             resolve(items)
@@ -145,11 +75,9 @@ module.exports = {
                 content: combined_items,
                 sass: compiled_sass
             }
-            console.log("ms:", ms)
             let result = mustache.render(template.toString('utf8'), ms);
-            console.log("resulta:", result)
 
-            await writer.writeFilePromise(path.join(global.appRoot, "done", "demo", "demo.html"), result)
+
             resolve(result)
         })
     }

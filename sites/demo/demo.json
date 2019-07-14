@@ -13,29 +13,21 @@
             "email": "email"
         }
     },
-    "site": {
-        "name": "home",
-        "content": [
-            {
-                "type": "h1",
-                "text": "Header 1",
-                "styles": "<some random css>"
-            },
-            {
-                "type": "h2",
-                "text": "Header 2",
-                "styles": "<some random css>"
-            },
-            {
-                "type": "p",
-                "text": "yeet!"
-            },
-            {
-                "type": "h1",
-                "text": "next section"
-            }
-        ]
-    },
+    "name": "home",
+    "content": [
+        {
+            "type": "header",
+            "text": "Lorem Ipsum"
+        },
+        {
+            "type": "subheader",
+            "text": "the fags"
+        },
+        {
+            "type": "paragraph",
+            "text": "Can't you see what you do to me, baby?. You make me crazy, you make me act like a maniac. I'm like a lunatic, you make me sick. You're truly the only one who can do this to me. You just make me get so crazy. I go schizo, I get so insane I just go schizophrenic. One minute I wanna slit your throat, the next I wanna sex."
+        }
+    ],
     "footer": [
         {
             "type": "text",

@@ -28,7 +28,6 @@ function readFilePromise(path) {
     })
 }
 function writeFilePromise(path, data) {
-    console.log("PATH: ", path)
     return new Promise((resolve, reject) => {
         fs.writeFile(path, data, (err) => {
             if (err) {
@@ -39,6 +38,17 @@ function writeFilePromise(path, data) {
     })
 }
 
+/**
+ * Watch a file then run a callback
+ * @param {String} filename 
+ * @param {Function} callback
+ */
+function watch(filename, callback) {
+    fs.watch(filename, (curr, prev) => {
+        console.log("file changed.")
+        callback()
+    });
+}
 
 
 
@@ -46,5 +56,6 @@ module.exports = {
     combine,
     clean,
     readFilePromise,
-    writeFilePromise
+    writeFilePromise,
+    watch
 }

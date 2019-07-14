@@ -2,19 +2,18 @@
 
 
 module.exports = {
-    h1: (literals, ...expressions) => {
+    header: (literals, ...expressions) => {
         return passthrough("h1", literals, ...expressions)
     },
-    h2: (literals, ...expressions) => {
+    subheader: (literals, ...expressions) => {
         return passthrough("h2", literals, ...expressions)
     },
-    h3: (literals, ...expressions) => {
-        return passthrough("h2", literals, ...expressions)
+    paragraph: (literals, ...expressions) => {
+        return passthrough("p", literals, ...expressions)
     },
-    p: (literals, ...expressions) => {
+    image: (literals, ...expressions) => {
         return passthrough("p", literals, ...expressions)
     }
-
 }
 
 

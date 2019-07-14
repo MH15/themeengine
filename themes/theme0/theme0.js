@@ -3,16 +3,20 @@
 const interface = require("../../interface")
 
 module.exports = {
-    h1: (content) => {
+    header: (content) => {
         // this is the simplest implementation of a node
-        return interface.h1`${content}`
+        return interface.header`${content}`
     },
-    h2: (content) => {
+    subheader: (content) => {
         // this is the simplest implementation of a node
-        return interface.h2`${content}`
+        return interface.subheader`${content}`
     },
-    p: (content) => {
+    paragraph: (content) => {
         // this is the simplest implementation of a node
-        return interface.p`${content}`
+        return interface.paragraph`${content}`
+    },
+    image: (content) => {
+        // this is the simplest implementation of a node
+        return interface.image`${content}`
     }
 }
