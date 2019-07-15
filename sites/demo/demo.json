@@ -16,12 +16,16 @@
     "name": "home",
     "content": [
         {
-            "type": "header",
-            "text": "Lorem Ipsum"
+            "type": "heading",
+            "text": "Lorem Ipsum",
+            "style": {
+                "color": "#F00",
+                "text-align": "center"
+            }
         },
         {
-            "type": "subheader",
-            "text": "the fags"
+            "type": "subheading",
+            "text": "the site"
         },
         {
             "type": "paragraph",

@@ -7,6 +7,8 @@ const path = require('path')
 const mustache = require('mustache')
 const fs = require('fs')
 let ejs = require('ejs')
+const chalk = require('chalk');
+
 
 var sassc = require('node-sass');
 
@@ -37,12 +39,12 @@ module.exports = {
             let items = site.content.map(item => {
                 if (VALID_ITEMS.includes(item.type)) {
                     if (THEME_TYPES.includes(item.type)) {
-                        return theme[item.type](item.text)
+                        return theme[item.type](item.text, item)
                     } else {
-                        console.error(`Item type "${item.type}" found in the interface not supported by ThemeEngine.`)
+                        console.error(chalk.red(`Item type "${item.type}" found in the interface not supported by ThemeEngine.`))
                     }
                 } else {
-                    console.error(`Item type "${item.type}" found in the theme definition not supported by ThemeEngine.`)
+                    console.error(chalk.red(`Item type "${item.type}" found in the theme definition not supported by ThemeEngine.`))
                 }
             })
             resolve(items)
@@ -56,7 +58,7 @@ module.exports = {
                 file: sasspath
             }, function (err, result) {
                 if (err) {
-                    console.error("Sass won't compile.")
+                    console.error(chalk.red("Sass won't compile."))
                     reject(err)
                 } else {
                     let s = result.css.toString()

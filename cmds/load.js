@@ -12,5 +12,9 @@ module.exports = async (args) => {
 	run()
 
 	writer.watch(path.join(global.appRoot, "sites", "demo", "demo.json"), run)
+	writer.watch(path.join(global.appRoot, "themes", "theme0", "theme0.js"), run)
+
+	// Don't watch during deployment
+	writer.watch(path.join(global.appRoot, "reference", "default.sass"), run)
 
 }

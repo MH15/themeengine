@@ -6,16 +6,19 @@ const configurer = require('./configurer')
 const beautify = require('js-beautify').html
 
 let site = {}
+let theme = {}
 
 module.exports = async () => {
     console.log("runn")
 
     let config = configurer()
+    // Clear the watched file from cache.
     delete require.cache[require.resolve(config.site.definition)]
+    delete require.cache[require.resolve(config.theme.definition)]
 
 
-    let theme = require(config.theme.definition)
-    console.log("site: ", site)
+    theme = require(config.theme.definition)
+    // console.log("site: ", site)
     site = require(config.site.definition)
     // console.log(site)
 

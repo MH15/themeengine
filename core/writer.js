@@ -45,7 +45,7 @@ function writeFilePromise(path, data) {
  */
 function watch(filename, callback) {
     fs.watch(filename, (curr, prev) => {
-        console.log("file changed.")
+        console.log(`"${filename}" changed.`)
         callback()
     });
 }
