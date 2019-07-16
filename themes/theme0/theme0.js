@@ -1,30 +1,52 @@
 // The 0th Theme!
 
-const interface = require("../../interface")
-
 module.exports = {
-    heading: (content, props) => {
-        // this is the simplest implementation of a node
-        return interface.heading(content, props)
+    heading: (props) => {
+        let style = collapseStyles(props.style)
+        return `<h1 data-id="${props.id}" class="heading--default" style="${style}">${props.text}</h1>`
     },
-    subheading: (content, props) => {
-        // this is the simplest implementation of a node
-        return interface.subheading(content, props)
+    subheading: (props) => {
+        let style = collapseStyles(props.style)
+        return `<h2 data-id="${props.id}" class="subheading--default" style="${style}">${props.text}</h2>`
     },
-    paragraph: (content, props) => {
-        // this is the simplest implementation of a node
-        return interface.paragraph(content, props)
+    paragraph: (props) => {
+        let style = collapseStyles(props.style)
+        return `<p data-id="${props.id}" class="paragraph--default" style="${style}">${props.text}</p>`
     },
-    button: (content, props) => {
-        // this is the simplest implementation of a node
-        return interface.button(content, props)
+    button: (props) => {
+        let style = collapseStyles(props.style)
+        return `<button data-id="${props.id}" class="button--default" style="${style}">${props.text}</button>`
     },
-    image: (content, props) => {
-        // this is the simplest implementation of a node
-        return interface.image(content, props)
+    image: (props) => {
+        return `<div data-id="${props.id}" class="image--default">
+            <img src="${props.src}" alt="${props.text}" width="100%" height="100%"/>
+        </div>`
     },
-    youtube: (content, props) => {
-        // this is the simplest implementation of a node
-        return interface.youtube(content, props)
+    youtube: (props) => {
+        return `<button data-id="${props.id}" class="button--default">${props.text}</button>`
     }
+}
+
+
+function collapseStyles(styles) {
+    styleString = ""
+    for (var key in styles) {
+        if (styles.hasOwnProperty(key)) {
+            styleString += `${key}: ${styles[key]};`
+        }
+    }
+    return styleString
+}
+
+
+
+function passthrough(tagName, literals, ...expressions) {
+    let string = ``
+    string += `<${tagName}>`
+    for (const [i, val] of expressions.entries()) {
+        string += literals[i] + val
+    }
+    string += literals[literals.length - 1]
+    string += `</${tagName}>`
+    return string
 }

@@ -25,26 +25,15 @@ function intersect(a, b) {
 module.exports = {
     itemize: (theme, site) => {
         return new Promise((resolve, reject) => {
-            let VALID_ITEMS = Object.keys(inter)
             let THEME_TYPES = Object.keys(theme)
-            let intersection = intersect(VALID_ITEMS, THEME_TYPES)
-
-            // Check for an incomplete theme.
-            if (intersection.length != VALID_ITEMS.length || intersection.length != THEME_TYPES.length) {
-                console.error("Certain elements from the interface are not defined.")
-            }
-
 
             // console.log("site: ", this.site)
             let items = site.content.map(item => {
-                if (VALID_ITEMS.includes(item.type)) {
-                    if (THEME_TYPES.includes(item.type)) {
-                        return theme[item.type](item.text, item)
-                    } else {
-                        console.error(chalk.red(`Item type "${item.type}" found in the interface not supported by ThemeEngine.`))
-                    }
+                if (THEME_TYPES.includes(item.type)) {
+                    return theme[item.type](item)
+
                 } else {
-                    console.error(chalk.red(`Item type "${item.type}" found in the theme definition not supported by ThemeEngine.`))
+                    console.log(chalk.red(`Item type "${item.type}" found in the interface not supported by ThemeEngine.`))
                 }
             })
             resolve(items)
@@ -58,7 +47,7 @@ module.exports = {
                 file: sasspath
             }, function (err, result) {
                 if (err) {
-                    console.error(chalk.red("Sass won't compile."))
+                    console.log(chalk.red("Sass won't compile."))
                     reject(err)
                 } else {
                     let s = result.css.toString()
