@@ -3,5 +3,5 @@
     "ignore": [
         "cmds/*"
     ],
-    "ext": "js, sass"
+    "ext": "js, sass, json"
 }
