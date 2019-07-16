@@ -5,7 +5,7 @@ body, html
     padding: 0
 
 *
-    border: 1px solid rgba(1,0,0,0.5)
+    // border: 1px solid rgba(1,0,0,0.5)
 
 
 #container
@@ -18,19 +18,32 @@ body, html
         width: 60%
 
 
-.text--default
+.text
     font-family: sans-serif
 
 
 h1.heading--default
-    @extend .text--default
+    @extend .text
     margin: 0
     margin-bottom: 10px
     font-weight: bold
 
 h2.subheading--default
-    @extend .text--default
+    @extend .text
     margin: 0
     margin-bottom: 10px
     font-weight: bold
+
+
+p.paragraph--default
+    @extend .text
     
+
+div.image--default
+    display: flex
+    img
+        margin: 0 auto
+
+button.button--default
+    // background: gray
+    // border-radius: 5px

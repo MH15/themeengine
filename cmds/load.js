@@ -5,6 +5,7 @@ const transpiler = require('../core/transpiler')
 const writer = require('../core/writer')
 let configurer = require('../core/configurer')
 let run = require('../core/run')
+const serve = require('../core/serve')
 
 
 // TODO: promises and error handling
@@ -17,4 +18,6 @@ module.exports = async (args) => {
 	// Don't watch during deployment
 	writer.watch(path.join(global.appRoot, "reference", "default.sass"), run)
 
+
+	serve()
 }

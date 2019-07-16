@@ -8,19 +8,23 @@ module.exports = {
     },
     subheading: (text, props) => {
         let style = collapseStyles(props.style)
-        return `<h2 class="subheading--default" style="${style}">${text}</h1>`
+        return `<h2 class="subheading--default" style="${style}">${text}</h2>`
     },
-    paragraph: (literals, ...expressions) => {
-        return passthrough("p", literals, ...expressions)
+    paragraph: (text, props) => {
+        let style = collapseStyles(props.style)
+        return `<p class="paragraph--default" style="${style}">${text}</p>`
     },
-    image: (literals, ...expressions) => {
-        return passthrough("p", literals, ...expressions)
+    button: (text, props) => {
+        let style = collapseStyles(props.style)
+        return `<button class="button--default" style="${style}">${text}</button>`
     },
-    youtube: (literals, ...expressions) => {
-        return passthrough("div", literals, ...expressions)
+    image: (text, props) => {
+        return `<div class="image--default">
+            <img src="${props.src}" alt="${text}" width="100%" height="100%"/>
+        </div>`
     },
-    button: (literals, ...expressions) => {
-        return passthrough("button", literals, ...expressions)
+    youtube: (text, props) => {
+        return `<button class="button--default">${text}</button>`
     }
 }
 
